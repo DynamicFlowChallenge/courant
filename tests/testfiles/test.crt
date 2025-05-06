@@ -1,0 +1,7 @@
+  a = true;
+  h = raise(true);
+  f = () => {
+    if (h) return 0;
+    a = false;
+  };
+  ignore = f();

@@ -1,0 +1,41 @@
+{
+  "name": "courant",
+  "version": "1.0.0",
+  "description": "A parser and interpreter for the Courant programming language",
+  "type": "CommonJS",
+  "main": "./dist/index.js",
+  "source": "./src/eval.ts",
+  "types": "./dist/types.d.ts",
+  "scripts": {
+    "build:antlr": "antlr4ts -Dlanguage=TypeScript -visitor -no-listener -o src/grammar Courant.g4",
+    "build:ts": "tsc -p .",
+    "build": "npm run build:antlr && npm run build:ts",
+    "clean": "rm -rf dist src/grammar",
+    "format": "prettier . --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DynamicFlowChallenge/courant"
+  },
+  "keywords": [
+    "antlr4ts",
+    "antlr",
+    "typescript",
+    "parser",
+    "ifc"
+  ],
+  "author": "Your Name",
+  "license": "ISC",
+  "homepage": "https://github.com/DynamicFlowChallenge/courant#readme",
+  "dependencies": {
+    "antlr4ts": "^0.5.0-alpha.4"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "antlr4ts-cli": "^0.5.0-alpha.4",
+    "jest": "^29.7.0",
+    "prettier": "3.5.3",
+    "ts-jest": "^29.3.2",
+    "typescript": "^5.8.3"
+  }
+}
