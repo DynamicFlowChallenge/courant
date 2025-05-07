@@ -2,7 +2,7 @@ import { CourantWrongFunctionArguments } from "./error";
 import { EvalVisitor } from "./eval";
 import { FunctionBodyContext } from "./grammar/CourantParser";
 import { Memory } from "./state";
-import { CourantLabeledValue } from "./types";
+import type { CourantLabeledValue } from "./types";
 
 export class CourantClosure {
   body: FunctionBodyContext;
@@ -24,7 +24,10 @@ export class CourantClosure {
     params: CourantLabeledValue[],
   ): CourantLabeledValue {
     if (params.length != this.params.length) {
-      throw new CourantWrongFunctionArguments(this.params.length, params.length);
+      throw new CourantWrongFunctionArguments(
+        this.params.length,
+        params.length,
+      );
     }
     const saved_memory = visitor.memory;
     visitor.memory = this.environment;

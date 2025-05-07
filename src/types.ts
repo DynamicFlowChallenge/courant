@@ -34,7 +34,10 @@ interface CourantFunction {
   value: CourantClosure;
 }
 
-type ExtractCourantValues<T extends CourantType> = Extract<CourantValue, { type: T }>;
+type ExtractCourantValues<T extends CourantType> = Extract<
+  CourantValue,
+  { type: T }
+>;
 
 export function checkType<T extends CourantType>(
   value: CourantValue,

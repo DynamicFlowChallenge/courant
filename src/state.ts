@@ -1,5 +1,4 @@
-import { Label } from "./label";
-import { CourantLabeledValue } from "./types";
+import type { CourantLabeledValue } from "./types";
 
 export class Memory {
   blocks: Array<Map<string, CourantLabeledValue>>;

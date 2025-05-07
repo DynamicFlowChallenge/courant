@@ -1,12 +1,15 @@
 import {
   CourantIllegalInformationFlow,
+  CourantIllegalReturn,
+  CourantSyntaxError,
   CourantTypeError,
+  CourantUncaughtValue,
   CourantUnknownIdentifierError,
   CourantWrongFunctionArguments,
 } from "../src/error";
 import { run } from "../src/eval";
 import { Label } from "../src/label";
-import { CourantLabeledValue } from "../src/types";
+import type { CourantLabeledValue } from "../src/types";
 
 test("assign number", () => {
   const mem = run("a = 3;");
@@ -682,6 +685,24 @@ test("control flow while", () => {
   };
   expect(mem.blocks[0].get("a")).toStrictEqual(expectedAValue);
   expect(mem.blocks[0].get("b")).toStrictEqual(expectedBValue);
+});
+
+//==============// Invalid Programs //=================//
+
+test("lexer error", () => {
+  expect(() => run(`a := 3;`)).toThrow(CourantSyntaxError);
+});
+
+test("parser error", () => {
+  expect(() => run(`a = () =>`)).toThrow(CourantSyntaxError);
+});
+
+test("Illegal return", () => {
+  expect(() => run(`return 3;`)).toThrow(CourantIllegalReturn);
+});
+
+test("Uncaught value", () => {
+  expect(() => run(`throw 3;`)).toThrow(CourantUncaughtValue);
 });
 
 //==============// Information Flow //=================//
