@@ -300,7 +300,7 @@ export class EvalVisitor
       // Not operator
       op = (val) => {
         checkType(val, "boolean");
-        return { type: val.type, value: !val };
+        return { type: val.type, value: !val.value };
       };
     }
     let val: CourantLabeledValue = this.visit(ctx.expr());

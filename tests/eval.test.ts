@@ -90,16 +90,24 @@ test("unary minus", () => {
 });
 
 test("unary not", () => {
-  const mem = run("a = not true;");
-  const expectedValue: CourantLabeledValue = {
+  const mem = run("a = not true; b = not false;");
+  const expectedAValue: CourantLabeledValue = {
     label: Label.bottom(),
     value: {
       type: "boolean",
       value: false,
     },
   };
-  const expectedMemory = [new Map([["a", expectedValue]])];
-  expect(mem.blocks).toStrictEqual(expectedMemory);
+  const expectedBValue: CourantLabeledValue = {
+    label: Label.bottom(),
+    value: {
+      type: "boolean",
+      value: true,
+    },
+  };
+  // const expectedMemory = [new Map([["a", expectedAValue]])];
+  expect(mem.getValue("a")).toStrictEqual(expectedAValue);
+  expect(mem.getValue("b")).toStrictEqual(expectedBValue);
 });
 
 test("unary not strict typing", () => {
@@ -685,6 +693,18 @@ test("control flow while", () => {
   };
   expect(mem.blocks[0].get("a")).toStrictEqual(expectedAValue);
   expect(mem.blocks[0].get("b")).toStrictEqual(expectedBValue);
+});
+
+test("control flow if not", () => {
+  const mem = run(`b = 0; a=false; if(not a) {b=1;}`);
+  const expectedValue: CourantLabeledValue = {
+    label: Label.bottom(),
+    value: {
+      type: "number",
+      value: 1,
+    },
+  };
+  expect(mem.blocks[0].get("b")).toStrictEqual(expectedValue);
 });
 
 //==============// Invalid Programs //=================//
